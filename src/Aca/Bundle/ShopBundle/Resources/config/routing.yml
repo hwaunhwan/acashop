@@ -1,0 +1,11 @@
+aca_shop_homepage:
+    path:     /hello/{name}/{age} #try acashop.vm/hello/simon => will show hello simon! {} means variable here
+    defaults: { _controller: AcaShopBundle:Default:index } #after reroute from above line, it will go to the controller
+
+aca_login_route:
+    path: /login_form
+    defaults: { _controller: AcaShopBundle:Default:loginForm }
+
+aca_login_handler:
+    path: /process_login
+    defaults: { _controller: AcaShopBundle:Default:processLogin }
