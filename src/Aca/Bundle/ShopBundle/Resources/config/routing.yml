@@ -1,11 +1,25 @@
+
+
 aca_shop_homepage:
-    path:     /hello/{name}/{age} #try acashop.vm/hello/simon => will show hello simon! {} means variable here
-    defaults: { _controller: AcaShopBundle:Default:index } #after reroute from above line, it will go to the controller
+    path: /
+    defaults: { _controller: AcaShopBundle:Default:index }
+
+#aca_shop_homepage:
+#    path:     /hello/{name}/{age} #try acashop.vm/hello/simon => will show hello simon! {} means variable here
+#    defaults: { _controller: AcaShopBundle:Default:index } #after reroute from above line, it will go to the controller
 
 aca_login_route:
     path: /login_form
-    defaults: { _controller: AcaShopBundle:Default:loginForm }
+    defaults: { _controller: AcaShopBundle:Login:loginForm } #loginForm method
+    methods: [GET, POST]
 
-aca_login_handler:
-    path: /process_login
-    defaults: { _controller: AcaShopBundle:Default:processLogin }
+
+#aca_login_handler:
+#    path: /process_login
+#    defaults: { _controller: AcaShopBundle:Default:processLogin } #Default is Class = DefaultController.php
+#    methods: [GET, POST]                                                              #and processLogin is method (required to make processLoginAction
+
+aca_logout_route:
+    path: /logout
+    defaults: { _controller: AcaShopBundle:Login:logout } #logoutAction method
+    methods: [POST]
