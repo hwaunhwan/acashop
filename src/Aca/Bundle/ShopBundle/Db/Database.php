@@ -36,6 +36,11 @@ class Database
         }
         return $return;
     }
+
+    public function createUser($query)
+    {
+      $this->db->query($query);
+    }
 }
 //class Database
 //{

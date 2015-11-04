@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h2 style="color:white">{{ product.name }}</h2>
+
+    <table style="color:white" class="table">
+    <thead>
+    <tr>
+        <th>Picture</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#{% for product in products %}#}
+    {#not using for loop here because of line 62 in showOneAction#}
+    <tr>
+        <td width="100px">
+            <a href="/products/{{ product.category }}/{{ product.slug }}">
+                <img src="{{ product.image }}" height="200px" width="200px">
+            </a>
+        </td>
+
+        <td width="400px">{{ product.description }}</td>
+
+        <td width="150px">${{ product.price }}</td>
+
+    </tr>
+    </tbody>
+    </table>
+{% endblock %}

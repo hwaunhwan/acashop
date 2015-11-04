@@ -1,84 +1,137 @@
 {% extends '::base.html.twig' %}
 
-{% block body %}
+{#Same name as base#}
+{% block content %}
 
-<!-- Page Content -->
-<div class="container">
 
-    <!-- Jumbotron Header -->
-    <header class="jumbotron hero-spacer">
-        <h1>A Warm Welcome!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-        <p><a class="btn btn-primary btn-large">Call to action!</a>
-        </p>
-    </header>
+    {% if loggedIn %}
 
-    <hr>
+        <h1>Welcome {{ name }}</h1>
+        <br>
+        <br>
+        <br>
+        <form action="/logout" method="post">
+            <input type="submit" value="Logout"/>
+        </form>
 
-    <!-- Title -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>Latest Features</h3>
+    {% else %}
+
+        {% if msg %}
+            <h1><span style="color:white">{{ msg }}</span></h1>
+        {% endif %}
+
+        {#<form action="/" method="POST">#}
+
+            {#Username: <input type="text" name="username" value="{{ username }}"/>#}
+            {#<br/>#}
+            {#Password: <input type="password" name="password" value="{{ password }}"/>#}
+            {#<br/>#}
+
+            {#<input type="submit" value="Login"/>#}
+        {#</form>#}
+        <h1><span style="color:white"><center>ACASHOP</center></span></h1>
+        <br>
+<form action="/" method="POST">
+        <div class="logo"></div>
+        <div class="login-block">
+            <h1>Login</h1>
+            <input type="text" placeholder="Username" name="username" id="username" value="{{ username }}" />
+            <input type="password" placeholder="Password" name="password" id="password" value="{{ password }}" />
+            <input type="submit" id="submit" value="Login" />
+            <h1><u><a href="/register" style="color:black">Register</u></h1>
         </div>
-    </div>
-    <!-- /.row -->
+</form>
 
-    <!-- Page Features -->
-    <div class="row text-center">
 
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-</div>
-<!-- /.row -->
+    {% endif %}
 
 {% endblock %}
+
+
+
+
+
+
+{#{% block content %}#}
+
+{#<!-- Page Content -->#}
+{#<div class="container">#}
+
+    {#<!-- Jumbotron Header -->#}
+    {#<header class="jumbotron hero-spacer">#}
+        {#<h1>A Warm Welcome!</h1>#}
+        {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>#}
+        {#<p><a class="btn btn-primary btn-large">Call to action!</a>#}
+        {#</p>#}
+    {#</header>#}
+
+    {#<hr>#}
+
+    {#<!-- Title -->#}
+    {#<div class="row">#}
+        {#<div class="col-lg-12">#}
+            {#<h3>Latest Features</h3>#}
+        {#</div>#}
+    {#</div>#}
+    {#<!-- /.row -->#}
+
+    {#<!-- Page Features -->#}
+    {#<div class="row text-center">#}
+
+        {#<div class="col-md-3 col-sm-6 hero-feature">#}
+            {#<div class="thumbnail">#}
+                {#<img src="http://placehold.it/800x500" alt="">#}
+                {#<div class="caption">#}
+                    {#<h3>Feature Label</h3>#}
+                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>#}
+                    {#<p>#}
+                        {#<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>#}
+                    {#</p>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-md-3 col-sm-6 hero-feature">#}
+            {#<div class="thumbnail">#}
+                {#<img src="http://placehold.it/800x500" alt="">#}
+                {#<div class="caption">#}
+                    {#<h3>Feature Label</h3>#}
+                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>#}
+                    {#<p>#}
+                        {#<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>#}
+                    {#</p>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-md-3 col-sm-6 hero-feature">#}
+            {#<div class="thumbnail">#}
+                {#<img src="http://placehold.it/800x500" alt="">#}
+                {#<div class="caption">#}
+                    {#<h3>Feature Label</h3>#}
+                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>#}
+                    {#<p>#}
+                        {#<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>#}
+                    {#</p>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-md-3 col-sm-6 hero-feature">#}
+            {#<div class="thumbnail">#}
+                {#<img src="http://placehold.it/800x500" alt="">#}
+                {#<div class="caption">#}
+                    {#<h3>Feature Label</h3>#}
+                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>#}
+                    {#<p>#}
+                        {#<a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>#}
+                    {#</p>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+{#</div>#}
+{#<!-- /.row -->#}
+
+{#{% endblock %}#}
 

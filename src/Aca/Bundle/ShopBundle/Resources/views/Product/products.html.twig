@@ -1,0 +1,61 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+
+
+
+    <h1 style="color:white">Our Products</h1>
+
+    <table style="color:white" class="table">
+        <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for product in products %}
+
+        <tr>
+                <td width="100px">
+                    <a href="/products/{{ product.category }}/{{ product.slug }}">
+                        <img src="{{ product.image }}" height="100px" width="100px">
+                    </a>
+                </td>
+
+                <td width="150px">
+                    <a href="/products/{{ product.category }}/{{ product.slug }}">
+                        {{ product.name }}
+                    </a>
+                </td>
+
+                <td width="400px">{{ product.description }}</td>
+
+                <td width="150px">${{ product.price }}</td>
+
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    {#<td>#}
+        {#<br>#}
+
+        {#<?php#}
+
+
+{#echo "<br>";#}
+
+        {#$sql = "SELECT * FROM posts";#}
+        {#$result = $db->query($sql);#}
+        {#echo $db->error;#}
+        {#foreach ($result as $row) {#}
+        {#echo "<pre>";#}
+    {#echo "Title:     $row[title]<br>Author:    $row[author]<br>Date:      $row[date]<br>Contents:  $row[contents]<br><br><br></pre>";#}
+        {#}?>#}
+    {#</td>#}
+
+    
+
+{% endblock %}

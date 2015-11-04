@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+
+    {% if newUser %}
+        <h1><span style="color:white">Thank you {{ name }} for signing up!</span></h1>
+        <br>
+        <br>
+        <br>
+        <form action="/" method="post">
+            <input type="submit" value="Sign In Now"/>
+        </form>
+
+    {% else %}
+        {% if msg %}
+
+        <h1><span style="color:white">{{ msg }}</span></h1>
+        <br>
+        <br>
+        {% endif %}
+
+        <form action="/register" method="POST">
+            <div class="logo"></div>
+            <div class="login-block">
+                <h1>Registration</h1>
+                <input type="text" placeholder="Name" name="name" id="name" value="{{ name }}" />
+                <input type="text" placeholder="Username" name="username" value="{{ username }}" />
+                <input type="password" placeholder="Password" name="password" value="{{ password }}" />
+                <input type="submit" id="submit" value="Register" />
+            </div>
+        </form>
+
+    {% endif %}
+
+{% endblock %}
