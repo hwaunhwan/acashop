@@ -4,9 +4,6 @@ namespace Aca\Bundle\ShopBundle\Controller; // use all the files in this directo
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;//class called Controller
-use Aca\Bundle\ShopBundle\Db\Database;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 
@@ -23,11 +20,14 @@ class ProductController extends Controller
                       *
                   FROM
                   aca_product
-                  ORDER BY
-                  product_id desc"
+                  "
         ;
 
-        $db = new Database();
+        $db = $this->get('acadb');
+//        echo '<pre>';
+//        print_r($db);
+//        die();
+//        $db = new Database();
         $productRows = $db->fetchRowMany($query);
 //        foreach ($productRows as $row){
 //        };
@@ -53,13 +53,29 @@ class ProductController extends Controller
      */
     public function showOneAction($category, $slug)
     {
-        $db = new Database();
+        $db = $this->get('acadb');
 
-        $query= 'select * from aca_product where category = "'.$category.'" and slug = "'.$slug.'";';
+        $query = '
+            select
+                *
+            from
+                aca_product
+            WHERE
+                slug = :mySlug
+            AND
+                category = :myCategory';
 
-        $product = $db->fetchRowMany($query);
+        $product = $db->fetchRow($query, array('mySlug'=> $slug, 'myCategory'=>$category));
 
-        $product = $product[0];
+
+
+//        $db = new Database();
+//
+//        $query= 'select * from aca_product where category = "'.$category.'" and slug = "'.$slug.'";';
+//
+//        $product = $db->fetchRowMany($query);
+//
+//        $product = $product[0];
 //        $product = array_pop($product); same thing as line 62
 //        $product = array_shift($product); same thing as line 62
 

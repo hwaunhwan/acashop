@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+
+
+    <h3><span style="color:white">Shopping Cart</span></h3>
+    <table style="color:white" class="table">
+    <thead>
+    <tr>
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if cartProducts %}
+
+        {% for cartProduct in cartProducts %}
+
+            <tr>
+                <td width="100px">
+                    <a href="/products/{{ cartProduct.category }}/{{ cartProduct.slug }}">
+                        <img src="{{ cartProduct.image }}" height="100px" width="100px">
+                    </a>
+                </td>
+
+                <td width="150px">
+                    <a href="/products/{{ cartProduct.category }}/{{ cartProduct.slug }}">
+                        {{ cartProduct.name }}
+                    </a>
+                </td>
+                <td width="150px">${{ cartProduct.price }}</td>
+                <td width="150px">
+
+                    {#<form name="quantityForm" action="/update_cart_qty" method="post">#}
+                        {#<input type="hidden" name="cart_id"#}
+                    {#</form>#}
+                    {{ cartProduct.qty }}
+
+                </td>
+
+
+
+            </tr>
+
+
+        {% endfor %}
+
+    {% endif %}
+    </tbody>
+    </table>
+{% endblock %}

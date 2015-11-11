@@ -43,7 +43,7 @@ aca_registration:
 aca_toHome:
     path: /toHome
     defaults: { _controller: AcaShopBundle:Registration:toHome }
-    methods: [POST]
+    methods: [GET, POST]
 
 aca_products:
     path: /products
@@ -54,3 +54,13 @@ aca_single_products:
     path: /products/{category}/{slug}
     defaults: { _controller: AcaShopBundle:Product:showOne }
     methods: [GET]
+
+aca_cart:
+    path: /cart
+    defaults: { _controller: AcaShopBundle:Cart:showCart }
+    methods: [GET, POST]
+
+aca_add_cart:
+    path: /add_cart
+    defaults: { _controller: AcaShopBundle:Cart:addCart}
+    methods: [POST]

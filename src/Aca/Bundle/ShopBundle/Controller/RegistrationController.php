@@ -22,9 +22,13 @@ class RegistrationController extends Controller
         $username = $request->get('username');
         $password = $request->get('password');
 
-        if (!empty($name) && !empty($username) && !empty($password)) {
+        $session->set('newUser', false);
 
-            $db = new Database();
+        if (!empty($name) || !empty($username) || !empty($password)) {
+
+
+
+//            Using Service Container
 
         $query = '
               select
@@ -32,15 +36,33 @@ class RegistrationController extends Controller
               from
                 aca_user
               where
-                username = "' . $username . '"';
+                username = :myUsername';
+        $db = $this->get('acadb');
+        $data = $db->fetchRowMany($query, array('myUsername'=>$username));
+//        Without Service Container
 
-        $data = $db->fetchRowMany($query);
+//        $query = '
+//              select
+//                *
+//              from
+//                aca_user
+//              where
+//                username = "' . $username . '"';
+//
+//        $db = new Database();
+//        $data = $db->fetchRowMany($query);
 
+//            $session->set('newUser', false);
 
-        if (!empty($data) && $request->getMethod() == 'POST') {                          //Duplicate username
+        if (!empty($data)) {                          //Duplicate username
+
             $msg = 'Username is already in use...Please choose a different one!';
-            $session->set('newUser', false);
+//            $session->set('newUser', false);
+
         } else {
+
+//      Service Container
+
             $newQuery = '
             insert into
             aca_user
@@ -48,11 +70,24 @@ class RegistrationController extends Controller
             VALUES
             ("' . $name . '", "' . $username . '", "' . $password . '")';
 
-            $db->createUser($newQuery);
+            $db = $this->get('acadb');
+            $db->executeSql($newQuery);
+//      Without Service Container
+
+//            $newQuery = '
+//            insert into
+//            aca_user
+//            (name, username, password)
+//            VALUES
+//            ("' . $name . '", "' . $username . '", "' . $password . '")';
+//
+//            $db->createUser($newQuery);
 
             $session->set('newUser', true);
-            $session->set('name', $name);
+//            $session->set('name', $name);
         }
+        } else {
+            $msg = 'Please enter your NAME, USERNAME and PASSWORD to register';
         }
         $session->save();
 
@@ -87,6 +122,9 @@ class RegistrationController extends Controller
     {
         $session = $this->getSession();
         $session->remove('newUser');
+        $session->remove('loggedIn');
+        $session->remove('name');
+        $session->remove('user_id');
         $session->save();
         return new RedirectResponse('/');
     }

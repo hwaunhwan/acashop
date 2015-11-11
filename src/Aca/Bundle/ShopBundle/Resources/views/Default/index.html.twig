@@ -6,7 +6,7 @@
 
     {% if loggedIn %}
 
-        <h1>Welcome {{ name }}</h1>
+        <h1><span style="color:white">Welcome {{ name }}</span></h1>
         <br>
         <br>
         <br>
@@ -38,7 +38,7 @@
             <input type="text" placeholder="Username" name="username" id="username" value="{{ username }}" />
             <input type="password" placeholder="Password" name="password" id="password" value="{{ password }}" />
             <input type="submit" id="submit" value="Login" />
-            <h1><u><a href="/register" style="color:black">Register</u></h1>
+            <h1><u><a href="/register" style="color:black">Register</a></u></h1>
         </div>
 </form>
 

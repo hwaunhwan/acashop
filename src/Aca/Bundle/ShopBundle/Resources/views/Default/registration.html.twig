@@ -3,20 +3,21 @@
 {% block content %}
 
     {% if newUser %}
+
         <h1><span style="color:white">Thank you {{ name }} for signing up!</span></h1>
         <br>
         <br>
         <br>
-        <form action="/" method="post">
+        <form action="/toHome" method="post">
             <input type="submit" value="Sign In Now"/>
         </form>
-
     {% else %}
         {% if msg %}
 
-        <h1><span style="color:white">{{ msg }}</span></h1>
-        <br>
-        <br>
+            <h2><span style="color:white"><center>{{ msg }}</center></span></h2>
+            <br>
+            <br>
+
         {% endif %}
 
         <form action="/register" method="POST">
@@ -29,7 +30,5 @@
                 <input type="submit" id="submit" value="Register" />
             </div>
         </form>
-
     {% endif %}
-
 {% endblock %}

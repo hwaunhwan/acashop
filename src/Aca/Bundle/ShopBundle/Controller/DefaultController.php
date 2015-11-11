@@ -5,7 +5,6 @@ namespace Aca\Bundle\ShopBundle\Controller; // use all the files in this directo
 //use Aca\Bundle\ShopBundle\Db\Database; //use the 'class' called Database //use this since you will use database.php
 //use Symfony\Component\HttpFoundation\Request; //class called Request
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;//class called Controller
-use Aca\Bundle\ShopBundle\Db\Database;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -24,17 +23,30 @@ class DefaultController extends Controller
 
         if (!empty($username) && !empty($password)) {
 
-            $query = '
-              select
-                *
-              from
-                aca_user
-              where
-                username = "' . $username . '"
-              and password = "' . $password . '"';
+//            $query = '
+//              select
+//                *
+//              from
+//                aca_user
+//              where
+//                username = "' . $username . '"
+//              and password = "' . $password . '"';
+//
+//            $db = new Database();
+//            $data = $db->fetchRowMany($query);
 
-            $db = new Database();
-            $data = $db->fetchRowMany($query);
+            $db = $this->get('acadb');
+            $query = '
+                select
+                  *
+                from
+                  aca_user
+                WHERE
+                  username = :myUsername
+                and
+                  password = :myPassword';
+            $data = $db->fetchRowMany($query, array('myUsername'=>$username, 'myPassword'=>$password));
+
 
             if (empty($data) && $request->getMethod() == 'POST') { // Invalid login
 
@@ -45,8 +57,10 @@ class DefaultController extends Controller
 
                 $row = array_pop($data);
                 $name = $row['name']; // person's name
+                $userId = $row['user_id'];
                 $session->set('loggedIn', true);
                 $session->set('name', $name);
+                $session->set('user_id', $userId);
 
             }
         }
@@ -54,6 +68,7 @@ class DefaultController extends Controller
 
         $loggedIn = $session->get('loggedIn'); //setting the session's values
         $name = $session->get('name');
+        $userId = $session->get('user_id');
 
         return $this->render(
             'AcaShopBundle:Default:index.html.twig',
@@ -62,7 +77,8 @@ class DefaultController extends Controller
                 'name' => $name,
                 'msg' => $msg,
                 'username' => $username,
-                'password' => $password
+                'password' => $password,
+                'user_id' => $userId
             )
         );
     }
@@ -76,6 +92,9 @@ class DefaultController extends Controller
         $session = $this->getSession();
         $session->remove('loggedIn');
         $session->remove('name');
+        $session->remove('newUser');
+        $session->remove('user_id');
+        $session->remove('cart_id');
         $session->save();
         return new RedirectResponse('/');
     }
