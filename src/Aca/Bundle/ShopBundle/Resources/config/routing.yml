@@ -64,3 +64,14 @@ aca_add_cart:
     path: /add_cart
     defaults: { _controller: AcaShopBundle:Cart:addCart}
     methods: [POST]
+
+aca_update_cart:
+    path: /update_cart
+    defaults: { _controller: AcaShopBundle:Cart:updateCart}
+    methods: [POST]
+
+aca_delete_cart:
+    path: /delete_cart
+    defaults: { _controller: AcaShopBundle:Cart:deleteCart}
+    methods: [POST]
+

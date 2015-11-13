@@ -74,7 +74,6 @@ class CartService
             return new RedirectResponse('/');
         }
 
-
     }
 
     /**
@@ -152,6 +151,11 @@ class CartService
                 'myCartId'=> $this->getCartId()
             )
         );
+    }
+
+    public function updateCart()
+    {
+        return new RedirectResponse('/cart');
     }
 
 }

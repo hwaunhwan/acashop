@@ -23,7 +23,11 @@ class CartController extends Controller
         $db = $this->get('acadb');
         $cartProducts = $cart->getAllCartProducts();
 
-
+        return $this->render(
+            'AcaShopBundle:Cart:show.all.html.twig',
+            array(
+                'cartProducts' => $cartProducts
+            )
 
 //        $cart = $this->get('cart');
 //        $db = $this->get('acadb');
@@ -53,12 +57,6 @@ class CartController extends Controller
 //        ;
 //        $cartProducts = $db->fetchRowMany($query, array('myCartId'=> $cartId));
 
-
-        return $this->render(
-            'AcaShopBundle:Cart:show.all.html.twig',
-            array(
-                'cartProducts' => $cartProducts
-            )
         );
     }
 
@@ -100,6 +98,16 @@ class CartController extends Controller
 //        }
 //        return $session;
 //    }
+
+    public function updateCartAction(Request $request)
+    {
+        return new RedirectResponse('/cart');
+    }
+
+    public function deleteCartAction()
+    {
+        return new RedirectResponse('/cart');
+    }
 
 
 }

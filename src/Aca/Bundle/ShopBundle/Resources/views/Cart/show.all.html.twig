@@ -33,13 +33,18 @@
                 <td width="150px">${{ cartProduct.price }}</td>
                 <td width="150px">
 
-                    {#<form name="quantityForm" action="/update_cart_qty" method="post">#}
-                        {#<input type="hidden" name="cart_id"#}
-                    {#</form>#}
-                    {{ cartProduct.qty }}
+                    <form name="quantityForm" action="/update_cart_qty" method="post">
+                        <input type="hidden" name="cart_product_id" value="{{ cartProduct.id }}"/>
+                        <input type="text" size="7" name="qty" style="color:black;text-align:center" value="{{ cartProduct.qty }}"/><br/>
+                        <input type="submit" value="Update" class="button btn-primary" style="width:70px"/>
+                    </form>
+
+                    <form name="deleteForm" action="/delete_cart_item" method="post">
+                        <input type="hidden" name="cart_product_id" style="color:black" value="{{ cartProduct.id }}"/>
+                        <input type="submit" value="Delete" class="button btn-danger" style="width:70px"/>
+                    </form>
 
                 </td>
-
 
 
             </tr>
@@ -47,7 +52,12 @@
 
         {% endfor %}
 
+        </tbody>
+        </table>
+    {% else %}
+
+        <h1>Your cart is empty!</h1>
+
     {% endif %}
-    </tbody>
-    </table>
+
 {% endblock %}
