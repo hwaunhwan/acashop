@@ -4,19 +4,21 @@
 
 
     <h3><span style="color:white">Shopping Cart</span></h3>
-    <table style="color:white" class="table">
-    <thead>
-    <tr>
-        <th>Picture</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-    </tr>
-    </thead>
-    <tbody>
+
     {% if cartProducts %}
 
-        {% for cartProduct in cartProducts %}
+        <table style="color:white" class="table">
+            <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for cartProduct in cartProducts %}
 
             <tr>
                 <td width="100px">
@@ -54,6 +56,11 @@
 
         </tbody>
         </table>
+
+        <form name="orderForm" action="/place_order" method="post">
+            <input type="hidden" name="submit_check" value="1 /">
+            <button type="submit" class="btn btn-primary">Check Out</button>
+        </form>
     {% else %}
 
         <h1>Your cart is empty!</h1>

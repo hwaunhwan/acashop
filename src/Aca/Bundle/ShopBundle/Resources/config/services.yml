@@ -12,3 +12,6 @@ services:
       class: Aca\Bundle\ShopBundle\Service\CartService
       arguments: [@acadb, @session]
 
+    order:
+      class: Aca\Bundle\ShopBundle\Service\OrderService
+      arguments: [@acadb, @session, @cart]

@@ -75,3 +75,11 @@ aca_delete_cart:
     defaults: { _controller: AcaShopBundle:Cart:deleteCart}
     methods: [POST]
 
+aca_place_order:
+    path: /place_order
+    defaults: { _controller: AcaShopBundle:Order:placeOrder}
+    methods: [POST]
+
+thank_you_order:
+    path: /thank_you
+    defaults: { _controller: AcaShopBundle:Order:thankYou}

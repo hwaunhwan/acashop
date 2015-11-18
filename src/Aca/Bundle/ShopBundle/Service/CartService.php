@@ -158,6 +158,18 @@ class CartService
         return new RedirectResponse('/cart');
     }
 
+    /**
+     * Delete a shopping cart
+     * @throws Exception
+     */
+    public function nixCart()
+    {
+        $cartId = $this->getCartId();
+        $this->db->delete('aca_cart_product', array('cart_id' => $cartId));
+        $this->db->delete('aca_cart', array('cart_id' => $cartId));
+        //create a new black cart
+//        $this->getCartId();
+    }
 }
 
 ?>

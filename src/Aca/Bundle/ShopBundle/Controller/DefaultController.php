@@ -95,6 +95,7 @@ class DefaultController extends Controller
         $session->remove('newUser');
         $session->remove('user_id');
         $session->remove('cart_id');
+        $session->remove('completed_order_id');
         $session->save();
         return new RedirectResponse('/');
     }

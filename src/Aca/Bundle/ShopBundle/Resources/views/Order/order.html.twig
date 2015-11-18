@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+
+    {% if orderProducts %}
+
+        <h3><span style="color:white">Shipping and Billing</span></h3>
+
+        <table style="color:white" class="table">
+            <thead>
+            <tr>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for orderProduct in orderProducts %}
+
+            <tr>
+                <td width="100px">
+                    <a href="/products/{{ orderProduct.category }}/{{ orderProduct.slug }}">
+                        <img src="{{ orderProduct.image }}" height="100px" width="100px">
+                    </a>
+                </td>
+
+                <td width="150px">
+                    <a href="/products/{{ orderProduct.category }}/{{ orderProduct.slug }}">
+                        {{ orderProduct.name }}
+                    </a>
+                </td>
+                <td width="150px">${{ orderProduct.price }}</td>
+                <td width="150px">{{ orderProduct.quantity }}</td>
+
+            </tr>
+
+
+        {% endfor %}
+
+        </tbody>
+        </table>
+
+    {% else %}
+
+        <h1 style="color:white">Your cart is empty!</h1>
+
+    {% endif %}
+
+{% endblock %}
