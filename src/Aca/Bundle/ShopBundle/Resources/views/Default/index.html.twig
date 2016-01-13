@@ -6,13 +6,22 @@
 
     {% if loggedIn %}
 
-        <h1><span style="color:white">Welcome {{ name }}</span></h1>
-        <br>
-        <br>
-        <br>
-        <form action="/logout" method="post">
-            <input type="submit" value="Logout"/>
-        </form>
+        <div class="col-md-5">
+            <h1><span style="color:white">Welcome {{ name }}</span></h1>
+            <br>
+            <div style="padding-left: 20px">
+            <ul>
+                <li><a href="/products" style="color: #c0c0c0"><h4><u>Browse our products</u></h4></a></li>
+                <li><a href="/cart" style="color: silver"><h4><u>Your cart</u></h4></a></li>
+            </ul>
+            </div>
+            <br>
+            <br>
+            <form action="/logout" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+
 
     {% else %}
 

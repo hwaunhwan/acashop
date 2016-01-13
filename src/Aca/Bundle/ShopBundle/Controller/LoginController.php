@@ -1,5 +1,5 @@
 <?php
-//
+// Login Controller is combined with DefaultController
 //
 //
 //

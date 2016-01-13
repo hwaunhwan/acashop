@@ -21,22 +21,27 @@ class OrderController extends Controller
      */
     public function placeOrderAction(Request $request)
     {
+
         $submitCheck = $request->get('submit_check');
-        $cart = $this->get('cart');
 
-        if(empty($submitCheck) || $submitCheck !=1) {
-        return new RedirectResponse('/cart');
+
+
+        if (empty($submitCheck) || $submitCheck != 1) {
+            return new RedirectResponse('/cart');
+        } else {
+            $order = $this->get('order');
+            $order->placeOrder();
+            $orderProducts = $order->getOrderProducts();
+
+            return $this->render(
+                'AcaShopBundle:Order:order.html.twig',
+                array (
+                    'orderProducts' => $orderProducts
+                )
+            );
         }
+    }
 
-        $order = $this->get('order');
-        $order->placeOrder();
-
-
-        return new RedirectResponse('/thank_you');
-
-
-
-        }
     public function thankYouAction()
     {
         $order = $this->get('order');

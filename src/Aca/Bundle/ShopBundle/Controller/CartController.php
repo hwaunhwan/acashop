@@ -20,12 +20,15 @@ class CartController extends Controller
     {
 
         $cart = $this->get('cart');
-        $db = $this->get('acadb');
+
+        //$db = $this->get('acadb');
+
+
         $cartProducts = $cart->getAllCartProducts();
 
         return $this->render(
             'AcaShopBundle:Cart:show.all.html.twig',
-            array(
+            array (
                 'cartProducts' => $cartProducts
             )
 
@@ -101,12 +104,20 @@ class CartController extends Controller
 
     public function updateCartAction(Request $request)
     {
+        $productId = $request->get('cart_product_id');
+        $quantity = $request->get('qty');
+        $cart = $this->get('cart');
+        $cart->updateCart($productId, $quantity);
         return new RedirectResponse('/cart');
     }
 
-    public function deleteCartAction()
+    public function deleteCartAction(Request $request)
     {
+        $productId = $request->get('cart_product_id');
+        $cart = $this->get('cart');
+        $cart->delete($productId);
         return new RedirectResponse('/cart');
+
     }
 
 

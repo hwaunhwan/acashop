@@ -3,8 +3,6 @@
 namespace Aca\Bundle\ShopBundle\Service;
 
 use Simplon\Mysql\Mysql;
-use \Exception;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Aca\Bundle\ShopBundle\Service\CartService;
 
@@ -51,35 +49,48 @@ class OrderService
             $this->db->insert(
                 'aca_order_product',
                 array(
-                    'order_id' => $orderProduct['cart_id'],
+                    'order_id' => $orderId,
                     'product_id' => $orderProduct['product_id'],
                     'quantity' => $orderProduct['qty'],
                     'price' => $orderProduct['unit_price']
                 )
             );
         }
+        $this->cart->nixCart();
+
         $this->session->set('completed_order_id', $orderId);
         $this->session->save();
-        $this->cart->nixCart();
+
 
 
     }
+
     public function createOrderRecord()
     {
         $userId = $this->session->get('user_id');
-        $this->db->insert('aca_order',
-            array(
-                'user_id' => $userId,
-                'order_date' => "NOW()"
-            ));
-        return $userId;
+
+        $query = '
+        insert into
+            aca_order (user_id)
+        values
+            ("'.$userId.'")';
+
+        return $this->db->executeSql($query);
+
+
+//        $this->db->insert('aca_order',
+//            array(
+//                'user_id' => $userId,
+//                'order_date' => "NOW()"
+//            ));
+//        return $userId;
     }
 
     public function getOrderProducts()
     {
         $orderId = $this->session->get('completed_order_id');
 
-        $query = "
+        $query = '
             select
                   *
             from
@@ -87,14 +98,10 @@ class OrderService
             	  left join aca_product p on (op.product_id = p.product_id)
             	  left join aca_cart c on (op.order_id = c.cart_id)
             WHERE
-                  order_id = :myOrderId";
+                  order_id = "'.$orderId.'"';
 
 
-        return $this->db->fetchRowMany($query,
-            array(
-                'myOrderId'=> $orderId
-            )
-        );
+        return $this->db->fetchRowMany($query);
 
 
     }

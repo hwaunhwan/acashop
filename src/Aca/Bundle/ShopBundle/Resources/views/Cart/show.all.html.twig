@@ -4,7 +4,7 @@
 
 
     <h3><span style="color:white">Shopping Cart</span></h3>
-
+    <br>
     {% if cartProducts %}
 
         <table style="color:white" class="table">
@@ -35,13 +35,13 @@
                 <td width="150px">${{ cartProduct.price }}</td>
                 <td width="150px">
 
-                    <form name="quantityForm" action="/update_cart_qty" method="post">
+                    <form name="quantityForm" action="/update_cart" method="post">
                         <input type="hidden" name="cart_product_id" value="{{ cartProduct.id }}"/>
                         <input type="text" size="7" name="qty" style="color:black;text-align:center" value="{{ cartProduct.qty }}"/><br/>
                         <input type="submit" value="Update" class="button btn-primary" style="width:70px"/>
                     </form>
 
-                    <form name="deleteForm" action="/delete_cart_item" method="post">
+                    <form name="deleteForm" action="/delete_cart" method="post">
                         <input type="hidden" name="cart_product_id" style="color:black" value="{{ cartProduct.id }}"/>
                         <input type="submit" value="Delete" class="button btn-danger" style="width:70px"/>
                     </form>
@@ -53,17 +53,25 @@
 
 
         {% endfor %}
-
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form name="orderForm" action="/place_order" method="post">
+                        <input type="hidden" name="submit_check" value="1">
+                        <button type="submit" class="btn btn-primary">Check Out</button>
+                    </form>
+                </td>
+            </tr>
         </tbody>
         </table>
 
-        <form name="orderForm" action="/place_order" method="post">
-            <input type="hidden" name="submit_check" value="1 /">
-            <button type="submit" class="btn btn-primary">Check Out</button>
-        </form>
+
+
     {% else %}
 
-        <h1>Your cart is empty!</h1>
+        <h1 style="color:#c0c0c0">Your cart is empty!</h1>
 
     {% endif %}
 

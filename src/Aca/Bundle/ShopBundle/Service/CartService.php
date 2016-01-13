@@ -6,7 +6,7 @@ use Simplon\Mysql\Mysql;
 use \Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
-
+use Aca\Bundle\ShopBundle\Model\Cart as CartModel;
 
 class CartService
 {
@@ -22,11 +22,27 @@ class CartService
      */
     protected $session;
 
-    public function __construct(Mysql $db, Session $session)   //Dependency Injection with type hinting = Mysql
+//    With Model
+
+    /**
+     * @var CartModel from Model
+     */
+    protected $cartModel;
+
+    public function __construct(Mysql $db, Session $session, CartModel $cartModel)
     {
         $this->db = $db;
         $this->session = $session;
+        $this->cartModel = $cartModel;
     }
+
+//    Without Model
+
+//    public function __construct(Mysql $db, Session $session)   //Dependency Injection with type hinting = Mysql
+//    {
+//        $this->db = $db;
+//        $this->session = $session;
+//    }
 
 
     /**
@@ -50,7 +66,6 @@ class CartService
 
 
         if (!empty($cartId)) {
-
             $insertedId= $this->db->insert('aca_cart_product',
                 array(
                     'cart_id' => $cartId,
@@ -134,32 +149,54 @@ class CartService
         }
     }
 
+//    This method is now under Model
+//
     public function getAllCartProducts()
     {
-        $query = "
-            select
-                  *
-            from
-            	  aca_cart_product cp
-	              left join aca_product p on (cp.product_id = p.product_id)
-	              left join aca_cart c on (cp.cart_id = c.cart_id)
-            WHERE
-                  cp.cart_id = :myCartId";
-
-        return $this->db->fetchRowMany($query,
-            array(
-                'myCartId'=> $this->getCartId()
-            )
-        );
+//        $query = "
+//            select
+//                  *
+//            from
+//            	  aca_cart_product cp
+//	              left join aca_product p on (cp.product_id = p.product_id)
+//	              left join aca_cart c on (cp.cart_id = c.cart_id)
+//            WHERsE
+//                  cp.cart_id = :myCartId";
+//
+//        return $this->db->fetchRowMany($query,
+//            array(
+//                'myCartId'=> $this->getCartId()
+//            )
+//        );
+        return $this->cartModel->getAllCartProducts($this->getCartId());
     }
 
-    public function updateCart()
+    public function updateCart($productId, $quantity)
     {
-        return new RedirectResponse('/cart');
+        $query = '
+        update
+            aca_cart_product
+        set
+            qty= "'.$quantity.'"
+        where
+            id= "'.$productId.'"';
+
+        return $this->db->executeSql($query);
+    }
+
+
+    public function delete($productId)
+    {
+        $query = '
+        delete from
+            aca_cart_product
+        where
+            id = "' . $productId . '"';
+        return $this->db->executeSql($query);
     }
 
     /**
-     * Delete a shopping cart
+     * Delete the entire shopping cart
      * @throws Exception
      */
     public function nixCart()

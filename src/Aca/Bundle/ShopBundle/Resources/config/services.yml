@@ -3,15 +3,22 @@ services:
 #        class: Aca\Bundle\ShopBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
 
-    acadb:                                  #give service a name
-      class: Simplon\Mysql\Mysql                  #class name
+    acadb:
+      class: Simplon\Mysql\Mysql
       arguments: [%database_host%, %database_user%, %database_password%, %database_name%]   #coming from config (packagist.org simplon)
 
 
     cart:
       class: Aca\Bundle\ShopBundle\Service\CartService
-      arguments: [@acadb, @session]
+      arguments: [@acadb, @session, @model.cart]
+
+
+    model.cart:
+      class: Aca\Bundle\ShopBundle\Model\Cart
+      arguments: [@acadb]
+
 
     order:
       class: Aca\Bundle\ShopBundle\Service\OrderService
       arguments: [@acadb, @session, @cart]
+
